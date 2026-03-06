@@ -90,6 +90,12 @@ body{background:#000;overflow:hidden;height:100vh;width:100vw;margin:0;font-fami
 .pedal-val{font-size:min(2.5vw,11px);color:#aaa}
 #gas-bar{background:#4caf50}
 #brake-bar{background:#f44336}
+#perf-strip{position:absolute;bottom:1%;left:50%;transform:translateX(-50%);display:flex;gap:min(3vw,14px);background:rgba(0,0,0,0.5);padding:3px 10px;border-radius:6px}
+.pf{text-align:center}
+.pf-label{font-size:min(1.8vw,8px);color:#666;letter-spacing:0.5px}
+.pf-val{font-size:min(2.5vw,12px);color:#888;font-weight:500}
+.pf-val.warn{color:#ff9800}
+.pf-val.bad{color:#f44336}
 </style></head><body>
 <div id="wrap">
   <img id="cam" src="/stream">
@@ -125,6 +131,12 @@ body{background:#000;overflow:hidden;height:100vh;width:100vw;margin:0;font-fami
     <div id="pedals">
       <div class="pedal-wrap"><div class="pedal-label">GAS</div><div id="gas-bar" class="pedal-bar"></div><div class="pedal-val" id="gas-val">0</div></div>
       <div class="pedal-wrap"><div class="pedal-label">BRK</div><div id="brake-bar" class="pedal-bar"></div><div class="pedal-val" id="brake-val">0</div></div>
+    </div>
+    <div id="perf-strip">
+      <div class="pf"><div class="pf-label">MODEL</div><div class="pf-val" id="pf-model">--</div></div>
+      <div class="pf"><div class="pf-label">DROPS</div><div class="pf-val" id="pf-drops">--</div></div>
+      <div class="pf"><div class="pf-label">CPU</div><div class="pf-val" id="pf-cpu">--</div></div>
+      <div class="pf"><div class="pf-label">MEM</div><div class="pf-val" id="pf-mem">--</div></div>
     </div>
   </div>
 </div>
@@ -184,6 +196,10 @@ function poll() {
     document.getElementById('gas-val').textContent = d.gas;
     document.getElementById('brake-bar').style.height = Math.max(2, d.brake * 0.6) + 'px';
     document.getElementById('brake-val').textContent = d.brake;
+    if (d.modelExec !== undefined) { var e=document.getElementById("pf-model"); e.textContent=d.modelExec+"ms"; e.className="pf-val"+(d.modelExec>35?" bad":d.modelExec>25?" warn":""); }
+    if (d.frameDropPerc !== undefined) { var e=document.getElementById("pf-drops"); e.textContent=d.frameDropPerc+"%"; e.className="pf-val"+(d.frameDropPerc>5?" bad":d.frameDropPerc>1?" warn":""); }
+    if (d.cpuUsage !== undefined) { var e=document.getElementById("pf-cpu"); e.textContent=d.cpuUsage+"%"; e.className="pf-val"+(d.cpuUsage>80?" bad":d.cpuUsage>60?" warn":""); }
+    if (d.memUsed !== undefined) { var e=document.getElementById("pf-mem"); e.textContent=d.memUsed+"%"; e.className="pf-val"+(d.memUsed>80?" bad":d.memUsed>60?" warn":""); }
 
   }).catch(() => {});
   setTimeout(poll, 250);
