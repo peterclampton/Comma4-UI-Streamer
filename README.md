@@ -14,8 +14,8 @@ Open `http://<comma-ip>:8082` on your phone, infotainment screen, or any browser
 - Set speed, engage status (Engaged / Standby)
 - Lead car distance (ft) and gap time (seconds) — appears when a lead car is detected and self-driving is active
 - Acceleration bar, gas/brake output
-- Road grade (%), CPU temperature
-- Performance monitoring — model exec time, frame drops, CPU & memory usage
+- Road grade (%)
+- Performance monitoring — model exec time, frame drops, CPU temperature & memory usage
 
 **Endpoints:**
 - `/` — fullscreen viewer with telemetry overlay
