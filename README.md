@@ -17,6 +17,10 @@ Open `http://<comma-ip>:8082` on your phone, infotainment screen, or any browser
 
 ---
 
+## Requirements
+
+Your phone/browser must be on the **same wifi network** as your comma (or connected via USB tether).
+
 ## Setup
 
 sunnypilot already has the stream hook built into `system/ui/lib/application.py` — you just need to drop in the stream server and enable it.
