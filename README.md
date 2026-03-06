@@ -72,17 +72,6 @@ export STREAM_FPS=15
 
 ---
 
-## Performance Notes
-
-The stream captures frames from the raylib render texture inside the UI process. On the comma 4 (Snapdragon 845):
-
-- **Parked:** Works great, no issues
-- **Onroad:** May cause "driving model lagging" warnings at higher frame rates due to CPU contention with the driving model. If you see this, lower `STREAM_FPS` to 5–10 or disable streaming while driving
-
-To disable, remove `export STREAM=1` from `launch_env.sh` and reboot.
-
----
-
 ## How it works
 
 ```
