@@ -27,23 +27,16 @@ sunnypilot already has the stream hook built into `system/ui/lib/application.py`
 ssh comma@<your-comma-ip>
 ```
 
-### Step 2 — Download the stream server
+### Step 2 — Install and enable
 
 ```bash
+# Download the stream server
 curl -sL https://raw.githubusercontent.com/peterclampton/Comma4-UI-Streamer/main/ui_stream.py -o /data/ui_stream.py
-```
 
-### Step 3 — Enable on boot
+# Enable streaming on boot
+echo 'export STREAM=1' >> /data/openpilot/launch_env.sh
 
-Add to `/data/openpilot/launch_env.sh`:
-
-```bash
-export STREAM=1
-```
-
-### Step 4 — Reboot and view
-
-```bash
+# Reboot to activate
 sudo reboot
 ```
 
@@ -63,7 +56,7 @@ Set these environment variables in `launch_env.sh`:
 
 | Variable | Default | Description |
 |----------|---------|-------------|
-| `STREAM` | off | Set to `1` to enable streaming |
+| `STREAM` | `1` | Enabled by default after install |
 | `STREAM_PORT` | `8082` | HTTP port for the stream server |
 | `STREAM_QUALITY` | `50` | JPEG quality (1–95) |
 | `STREAM_FPS` | `20` | Target frame rate |
@@ -86,7 +79,7 @@ The stream captures frames from the raylib render texture inside the UI process.
 - **Parked:** Works great, no issues
 - **Onroad:** May cause "driving model lagging" warnings at higher frame rates due to CPU contention with the driving model. If you see this, lower `STREAM_FPS` to 5–10 or disable streaming while driving
 
-The stream has zero overhead when `STREAM=1` is not set.
+To disable, remove `export STREAM=1` from `launch_env.sh` and reboot.
 
 ---
 
